@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  agent-mesh:
+    build: ./agent-mesh
+    ports:
+      - "8765:8765"
+    networks:
+      - arbitration-net
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8765/health')"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  visualizer:
+    build: ./visualizer
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_WS_URL=ws://agent-mesh:8765/ws
+    depends_on:
+      agent-mesh:
+        condition: service_healthy
+    networks:
+      - arbitration-net
+
+networks:
+  arbitration-net:
+    driver: bridge
