@@ -1,14 +1,14 @@
-"use client";
+'use client'
 
-import AgentTopology from "@/components/AgentTopology";
-import TranscriptLog from "@/components/TranscriptLog";
-import { useArbitrationWebSocket } from "@/lib/use-arbitration-ws";
+import AgentTopology from '@/components/AgentTopology'
+import TranscriptLog from '@/components/TranscriptLog'
+import { useArbitrationWebSocket } from '@/lib/use-arbitration-ws'
 
 const WS_URL = process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:8765/ws";
 
 export default function Home() {
   const { transcript, phase, connected, runDemo } =
-    useArbitrationWebSocket(WS_URL);
+    useArbitrationWebSocket(WS_URL)
 
   const isIdle = phase === "idle";
   const isRunning = phase !== "idle" && phase !== "complete";
@@ -97,7 +97,7 @@ export default function Home() {
                   {transcript.length} msg{transcript.length !== 1 ? "s" : ""}
                 </span>
               </div>
-              <div className="flex-1 min-h-0">
+              <div className="flex-1 min-h-0 bg-zinc-950/50 rounded-xl border border-zinc-800/50 p-2 shadow-inner">
                 <TranscriptLog messages={transcript} />
               </div>
             </div>
@@ -159,5 +159,5 @@ export default function Home() {
         </div>
       </div>
     </main>
-  );
+  )
 }
