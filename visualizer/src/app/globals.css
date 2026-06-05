@@ -142,3 +142,58 @@ body {
 .btn-run:hover:not(:disabled)::after {
   opacity: 1;
 }
+
+/* ─── REACT FLOW DARK THEME OVERRIDES ─── */
+
+/* Canvas background */
+.react-flow {
+  background: transparent !important;
+}
+
+/* Attribution — hide */
+.react-flow__attribution {
+  display: none !important;
+}
+
+/* Node selection */
+.react-flow__node {
+  cursor: default !important;
+}
+
+/* Handle visibility */
+.react-flow__handle {
+  opacity: 0 !important;
+  transition: opacity 0.2s;
+}
+.react-flow__node:hover .react-flow__handle {
+  opacity: 1 !important;
+}
+
+/* Connection line (when dragging) */
+.react-flow__connection-line {
+  stroke: #8b5cf6 !important;
+  stroke-width: 2 !important;
+}
+
+/* Selected node border */
+.react-flow__node.selected {
+  box-shadow: none !important;
+}
+
+/* Edge labels */
+.react-flow__edge-textbg {
+  fill: #0d0d14 !important;
+}
+.react-flow__edge-text {
+  fill: #6b6b80 !important;
+  font-family: var(--font-geist-mono, monospace) !important;
+  font-size: 9px !important;
+}
+
+/* Controls dark styling */
+.react-flow__controls {
+  box-shadow: none !important;
+}
+.react-flow__controls-button {
+  fill: #a0a0b8 !important;
+}
