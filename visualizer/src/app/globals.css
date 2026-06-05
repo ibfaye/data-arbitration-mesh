@@ -17,10 +17,27 @@
   --color-accent-red: #ef4444;
 }
 
+/* Ensure all design tokens exist as CSS custom properties regardless of tree-shaking */
+:root {
+  --color-surface: #07070b;
+  --color-card: #0d0d14;
+  --color-card-hover: #111119;
+  --color-border: #1e1e2e;
+  --color-border-active: #2a2a3e;
+  --color-muted: #6b6b80;
+  --color-body: #a0a0b8;
+  --color-heading: #eeeef5;
+  --color-accent-blue: #3b82f6;
+  --color-accent-violet: #8b5cf6;
+  --color-accent-amber: #f59e0b;
+  --color-accent-emerald: #10b981;
+  --color-accent-red: #ef4444;
+}
+
 /* ─── BASE ─── */
 body {
-  background: var(--color-surface);
-  color: var(--color-body);
+  background: #07070b;
+  color: #a0a0b8;
   font-family: var(--font-geist-sans, ui-sans-serif, system-ui, sans-serif);
 }
 
@@ -145,8 +162,34 @@ body {
 
 /* ─── REACT FLOW DARK THEME OVERRIDES ─── */
 
-/* Canvas background */
-.react-flow {
+/* Override React Flow's dark mode CSS variables to match our palette */
+.react-flow.dark {
+  --xy-background-color: transparent !important;
+  --xy-background-color-default: transparent !important;
+  --xy-background-pattern-color-default: #1e1e2e !important;
+  --xy-background-pattern-cross-color-default: #1e1e2e !important;
+  --xy-edge-stroke-default: #2a2a3e !important;
+  --xy-edge-stroke-width-default: 1.5 !important;
+  --xy-selection-background-color-default: rgba(139, 92, 246, 0.08) !important;
+  --xy-selection-border-default: 1px solid rgba(139, 92, 246, 0.2) !important;
+  --xy-minimap-background-color-default: #0d0d14 !important;
+  --xy-minimap-mask-background-color-default: rgba(7, 7, 11, 0.7) !important;
+  --xy-controls-background-color-default: #0d0d14 !important;
+  --xy-controls-button-background-color-default: #1a1a24 !important;
+  --xy-controls-button-background-color-hover-default: #2a2a3e !important;
+  --xy-controls-button-color-default: #a0a0b8 !important;
+  --xy-controls-button-border-color-default: #1e1e2e !important;
+  --xy-node-border-default: 0px solid transparent !important;
+  --xy-node-background-color-default: transparent !important;
+  --xy-node-boxshadow-default: none !important;
+}
+
+/* All React Flow internal containers transparent */
+.react-flow,
+.react-flow__renderer,
+.react-flow__pane,
+.react-flow__viewport,
+.react-flow__background {
   background: transparent !important;
 }
 
@@ -155,9 +198,11 @@ body {
   display: none !important;
 }
 
-/* Node selection */
+/* Node — no default styling */
 .react-flow__node {
   cursor: default !important;
+  background: transparent !important;
+  border: none !important;
 }
 
 /* Handle visibility */
@@ -175,9 +220,10 @@ body {
   stroke-width: 2 !important;
 }
 
-/* Selected node border */
+/* Selected node — no border */
 .react-flow__node.selected {
   box-shadow: none !important;
+  border: none !important;
 }
 
 /* Edge labels */
@@ -190,7 +236,7 @@ body {
   font-size: 9px !important;
 }
 
-/* Controls dark styling */
+/* Controls — already styled via inline, these are fallbacks */
 .react-flow__controls {
   box-shadow: none !important;
 }
