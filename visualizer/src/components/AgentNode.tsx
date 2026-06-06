@@ -9,6 +9,7 @@ export interface AgentNodeData extends Record<string, unknown> {
   accent: "blue" | "violet" | "amber" | "emerald";
   active: boolean;
   isArbiter: boolean;
+  pulsing?: boolean;
 }
 
 const ACCENT_COLORS = {
@@ -20,18 +21,27 @@ const ACCENT_COLORS = {
 
 function AgentNode({ data }: NodeProps<Node<AgentNodeData>>) {
   const c = ACCENT_COLORS[data.accent];
-  const { active, isArbiter } = data;
+  const { active, isArbiter, pulsing } = data;
+
+  // Extra glow when pulsing (message just arrived or received)
+  const pulseGlow = pulsing
+    ? `0 0 32px ${c.glow}, 0 0 64px ${c.glow}, 0 0 96px ${c.glow}`
+    : active
+    ? `0 0 20px ${c.glow}, 0 0 40px ${c.glow}`
+    : "none";
+
+  const pulseScale = pulsing ? "scale-110" : "scale-100";
 
   return (
     <div
       className={`
-        relative px-4 py-3 rounded-xl border backdrop-blur-xl transition-all duration-500
+        relative px-4 py-3 rounded-xl border backdrop-blur-xl transition-all duration-300
         ${active ? `${c.border} ${c.bg}` : "border-[#1e1e2e] bg-[#0d0d14]/90"}
         ${isArbiter ? "min-w-[180px]" : "min-w-[170px]"}
-        ${active ? "shadow-lg" : ""}
+        ${pulseScale}
       `}
       style={{
-        boxShadow: active ? `0 0 20px ${c.glow}, 0 0 40px ${c.glow}` : "none",
+        boxShadow: pulseGlow,
       }}
     >
       {/* Top accent line */}

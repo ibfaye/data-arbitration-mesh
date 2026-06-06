@@ -7,8 +7,8 @@ import { useArbitrationWebSocket } from '@/lib/use-arbitration-ws'
 const WS_URL = process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:8765/ws";
 
 export default function Home() {
-  const { transcript, phase, connected, runDemo } =
-    useArbitrationWebSocket(WS_URL)
+  const { transcript, phase, connected, runDemo, activityPulse } =
+    useArbitrationWebSocket(WS_URL);
 
   const isIdle = phase === "idle";
   const isRunning = phase !== "idle" && phase !== "complete";
@@ -75,7 +75,7 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
           {/* LEFT: Topology — takes 3/5 */}
           <section className="lg:col-span-3">
-            <AgentTopology phase={phase} />
+            <AgentTopology phase={phase} activityPulse={activityPulse} />
           </section>
 
           {/* RIGHT: Transcript — takes 2/5 */}
